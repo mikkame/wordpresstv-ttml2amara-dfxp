@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja" style="height: 100%;width: 100%;margin: 0;padding: 0">
+<head>
+<meta charset="utf-8">
+<title>Wordpress.tv(ttml) => amara.org(dfxp)</title>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+</head>
+<body style="text-align: center;height: 100%;">
+<style>#forkongithub a{background:#000;color:#fff;text-decoration:none;font-family:arial,sans-serif;text-align:center;font-weight:bold;padding:5px 40px;font-size:1rem;line-height:2rem;position:relative;transition:0.5s;}#forkongithub a:hover{background:#c11;color:#fff;}#forkongithub a::before,#forkongithub a::after{content:"";width:100%;display:block;position:absolute;top:1px;left:0;height:1px;background:#fff;}#forkongithub a::after{bottom:1px;top:auto;}@media screen and (min-width:800px){#forkongithub{position:absolute;display:block;top:0;right:0;width:200px;overflow:hidden;height:200px;z-index:9999;}#forkongithub a{width:200px;position:absolute;top:60px;right:-60px;transform:rotate(45deg);-webkit-transform:rotate(45deg);-ms-transform:rotate(45deg);-moz-transform:rotate(45deg);-o-transform:rotate(45deg);box-shadow:4px 4px 10px rgba(0,0,0,0.8);}}</style><span id="forkongithub"><a href="https://github.com/mikkame/wordpresstv-ttml2amara-dfxp">Fork me on GitHub</a></span>
+<div>
+	<h1> Wordpress.tv(ttml) => amara.org(dfxp)</h1>
+	<h2> drop here (.ttml)</h2>
+	<a id="dl" style="display: none;width: 50%;margin: auto;border-radius: 10px;text-align: center;background-color: #15ff5f" href="#" >DOWNLOAD</a>
+</div>
+<script type="text/javascript">
+$(function(){
+	$('body').bind('drop', function(e){
+		e.preventDefault();
+		var files = e.originalEvent.dataTransfer.files;
+		var reader = new FileReader();
+		reader.readAsText(files[0], "utf-8");
+		reader.onload = function(e){
+			var textarea = $("<textarea></textarea>");
+			var str = e.target.result.replace('<body region="subtitleArea">', '<body region="subtitleArea">'+'<div>').replace('</body>','</div></body>');
+			str = textarea.html(str).text();
+			$("#dl").attr("href","data:text/plain;charset=UTF-8,"+encodeURIComponent(str));
+			$("#dl").attr("download",files[0].name+".dfxp");
+			$("#dl").show();
+		}
+	
+	}).bind('dragenter', function(){
+		return false;
+	}).bind('dragover', function(){
+		return false;
+	});
+});
+	
+</script>
+</body>
+</html>
